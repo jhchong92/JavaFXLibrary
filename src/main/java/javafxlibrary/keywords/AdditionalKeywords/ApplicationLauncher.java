@@ -112,9 +112,8 @@ public class ApplicationLauncher extends TestFxAdapter {
     }
 
     private void addPathToClassPath(String path) {
+        // TODO: This is a deprecated method, refer to https://nipafx.dev/java-9-migration-guide/#casting-to-urlclassloader
         URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-
-        RobotLog.info("Setting following path to classpath: " + path);
 
         try {
             Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
@@ -136,8 +135,10 @@ public class ApplicationLauncher extends TestFxAdapter {
             + "| Set To Classpath | C:${/}users${/}my${/}test${/}folder2${/}* | failIfNotFound=${True} | \n")
     @ArgumentNames({ "path", "failIfNotFound=False" })
     public void setToClasspath(String path, boolean failIfNotFound) {
+        RobotLog.info("Hi.");
         RobotLog.info("Setting \"" + path + "\" to classpath, failIfNotFound=\"" + failIfNotFound + "\"");
         if (path.endsWith("*")) {
+            RobotLog.info("Ends with *.");
             path = path.substring(0, path.length() - 1);
             RobotLog.info("Adding all jars from directory.");
             String fullPath = FileSystems.getDefault().getPath(path).normalize().toAbsolutePath().toString();
@@ -169,6 +170,7 @@ public class ApplicationLauncher extends TestFxAdapter {
                 }
             }
         } else {
+            RobotLog.info("Add path to class path.");
             addPathToClassPath(path);
         }
     }

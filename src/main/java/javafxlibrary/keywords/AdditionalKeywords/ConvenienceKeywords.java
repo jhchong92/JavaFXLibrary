@@ -17,8 +17,8 @@
 
 package javafxlibrary.keywords.AdditionalKeywords;
 
-import com.sun.javafx.scene.control.skin.TableViewSkin;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
+// import com.sun.javafx.scene.control.skin.TableViewSkin;
+// import com.sun.javafx.scene.control.skin.VirtualFlow;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.geometry.BoundingBox;
@@ -293,9 +293,7 @@ public class ConvenienceKeywords extends TestFxAdapter {
                     RobotLog.trace("Method getImage() found. Invoking it on node: \"" + node + "\"");
                     try {
                         Object result = m.invoke(node, (Object) null);
-                        Image image = (Image) result;
-                        RobotLog.trace("Calling deprecated method impl_getUrl() for image: \"" + image + "\"");
-                        return image.impl_getUrl();
+                        return ((Image) result).getUrl();
                     } catch (Exception e) {
                         throw new JavaFXLibraryNonFatalException("Problem calling method: .getImage(): " + e.getMessage(), e);
                     }
@@ -469,6 +467,7 @@ public class ConvenienceKeywords extends TestFxAdapter {
         }
     }
 
+    // TODO: Implement without sun.com packages
     @RobotKeyword("Returns a list of *visible* cells(Nodes) of the given table column.\n\n"
             + "``locator`` is either a _query_ or _Object:Node_ for identifying the TableView element, see "
             + "`3. Locating JavaFX Nodes`. \n\n"
@@ -477,16 +476,18 @@ public class ConvenienceKeywords extends TestFxAdapter {
     public List<Object> getTableColumnCells(Object locator, int column) {
         checkObjectArgumentNotNull(locator);
         try {
-            RobotLog.info("Getting table \"" + locator + "\" cells from column \"" + column + "\".");
-            TableView table = (TableView) objectToNode(locator);
-            List<Object> columnCells = new ArrayList<>();
-            VirtualFlow<?> vf = (VirtualFlow<?>) ( (TableViewSkin<?>) table.getSkin() ).getChildren().get( 1 );
-
-            for(int i = vf.getFirstVisibleCell().getIndex(); i < vf.getLastVisibleCell().getIndex() + 1; i++) {
-                RobotLog.info("Index number: " + i);
-                columnCells.add(mapObject(vf.getCell(i).getChildrenUnmodifiable().get(column)));
-            }
-            return mapObjects(columnCells);
+            RobotLog.error("Get Table Column Cells is not supported in Java 11");
+            throw new JavaFXLibraryNonFatalException("Get Table Column Cells is not supported in Java 11");
+            // RobotLog.info("Getting table \"" + locator + "\" cells from column \"" + column + "\".");
+            // TableView table = (TableView) objectToNode(locator);
+            // List<Object> columnCells = new ArrayList<>();
+            // VirtualFlow<?> vf = (VirtualFlow<?>) ( (TableViewSkin<?>) table.getSkin() ).getChildren().get( 1 );
+            //
+            // for(int i = vf.getFirstVisibleCell().getIndex(); i < vf.getLastVisibleCell().getIndex() + 1; i++) {
+            //     RobotLog.info("Index number: " + i);
+            //     columnCells.add(mapObject(vf.getCell(i).getChildrenUnmodifiable().get(column)));
+            // }
+            // return mapObjects(columnCells);
         } catch (ClassCastException cce) {
             throw new JavaFXLibraryNonFatalException("Unable to handle argument as TableView!");
         }
