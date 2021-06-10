@@ -17,6 +17,10 @@
 
 package javafxlibrary.keywords.Keywords;
 
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javafx.scene.input.MouseButton;
 import javafxlibrary.exceptions.JavaFXLibraryNonFatalException;
 import javafxlibrary.utils.RobotLog;

@@ -112,7 +112,6 @@ public class ApplicationLauncher extends TestFxAdapter {
     }
 
     private void addPathToClassPath(String path) {
-        // TODO: This is a deprecated method, refer to https://nipafx.dev/java-9-migration-guide/#casting-to-urlclassloader
         URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
 
         try {
