@@ -20,7 +20,7 @@ public class RobotLog {
             try {
 
                 // This block configure the logger with handler and formatter
-                fh = new FileHandler("/Users/jchong/Documents/Projects/OGPT/customizations/ogph/MyLogFile.log");
+                fh = new FileHandler("JavaFxLogFile.log");
                 instance.addHandler(fh);
                 SimpleFormatter formatter = new SimpleFormatter();
                 fh.setFormatter(formatter);
