@@ -78,10 +78,13 @@ public class ScreenCapturing extends TestFxAdapter {
     @ArgumentNames({"logImage=True", "mapObject=True"})
     public Object capturePrimaryScreen(boolean logImage, boolean mapObject)  {
         try {
+            RobotLog.info("capturePrimaryScreen");
     	GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
     	Rectangle2D target = asyncFx(() -> new Rectangle2D(0, 0, gd.getDisplayMode().getWidth(), gd.getDisplayMode().getHeight())).get();
+            RobotLog.info("capturePrimaryScreen2");
         return this.captureImage(target,logImage, mapObject);
         } catch (InterruptedException | ExecutionException iee) {
+            RobotLog.info("capturePrimaryScreen3");
             throw new JavaFXLibraryNonFatalException("Unable to get Rectangle2D: " + iee.getCause());
         } catch (Exception e) {
             if (e instanceof JavaFXLibraryNonFatalException)
@@ -114,16 +117,21 @@ public class ScreenCapturing extends TestFxAdapter {
             Image image;
             String logPath;
             Path path = createNewImageFileNameWithPath();
+            RobotLog.info(path.toString());
 
             Bounds targetBounds = asyncFx(() -> objectToBounds(locator)).get();
+            RobotLog.info("captureImage targetBounds");
             image = asyncFx(() -> robot.capture(targetBounds).getImage()).get();
+            RobotLog.info("captureImage image");
             asyncFx(() -> robotContext().getCaptureSupport().saveImage(image, path)).get();
-
+            RobotLog.info("captureImage saveImage");
             if (getCurrentSessionScreenshotDirectoryInLogs() != null) {
                 logPath = getCurrentSessionScreenshotDirectoryInLogs()+"/"+path.getFileName();
             } else {
                 logPath = path.toString();
             }
+            RobotLog.info("captureImage logPath");
+            RobotLog.info(logPath);
 
             if (logImage) {
                 double printSize = targetBounds.getWidth() > 800 ? 800 : targetBounds.getWidth();

@@ -127,6 +127,7 @@ public class JavaFXLibrary extends AnnotationLibrary {
 
     public JavaFXLibrary(boolean headless) {
         super(includePatterns);
+        RobotLog.info("Initialize: headless" + headless);
         if (headless) {
             System.setProperty("testfx.robot", "glass");
             System.setProperty("testfx.headless", "true");
@@ -136,7 +137,7 @@ public class JavaFXLibrary extends AnnotationLibrary {
         } else {
             // v4.0.15-alpha sets default robot as glass, which breaks rolling
             // Forcing usage of awt robot as previous versions
-            System.setProperty("testfx.robot", "awt");
+            System.setProperty("testfx.robot", "glass");
         }
     }
 

@@ -112,16 +112,17 @@ public class ApplicationLauncher extends TestFxAdapter {
     }
 
     private void addPathToClassPath(String path) {
-        URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-
-        try {
-            Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-            method.setAccessible(true);
-            method.invoke(classLoader, (new File(path)).toURI().toURL());
-
-        } catch (Exception e) {
-            throw new JavaFXLibraryFatalException("Problem setting the classpath: " + path, e);
-        }
+        // TODO: FIX THIS
+        // URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        //
+        // try {
+        //     Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+        //     method.setAccessible(true);
+        //     method.invoke(classLoader, (new File(path)).toURI().toURL());
+        //
+        // } catch (Exception e) {
+        //     throw new JavaFXLibraryFatalException("Problem setting the classpath: " + path, e);
+        // }
     }
 
     @RobotKeyword("Loads given path to classpath.\n\n"
