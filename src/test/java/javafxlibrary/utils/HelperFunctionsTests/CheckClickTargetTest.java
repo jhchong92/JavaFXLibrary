@@ -71,8 +71,8 @@ public class CheckClickTargetTest extends TestFxAdapterTest {
     @Test
     public void checkClickTarget_OutsideVisibleWindow() {
         setupStageTests(480, 480, 50, 50);
-        String target = "Can't click Button at [505.0, 505.0]: out of window bounds. To enable clicking outside " +
-                "of visible window bounds use keyword SET SAFE CLICKING | OFF";
+        String target = "object inside active window check failed: can't click Button at [505.0, 505.0]: out of window " +
+            "bounds. To enable clicking outside of visible window bounds use keyword `Set Safe Clicking` with argument `off`";
 
         thrown.expect(JavaFXLibraryNonFatalException.class);
         thrown.expectMessage(target);
@@ -80,16 +80,16 @@ public class CheckClickTargetTest extends TestFxAdapterTest {
     }
 
     @Test
-    public void checkClickTarget_UsingStringLocator() {
+    public void checkClickTarget_UsingStringLocator() throws InterruptedException {
         new MockUp<HelperFunctions>() {
             @Mock
-            Node waitUntilExists(String target, int timeout, String timeUnit) {
+            Node objectToNode(Object target) {
                 return button;
             }
         };
         HelperFunctions.setLibraryKeywordTimeout(1);
         setupStageTests(300, 300, 50, 50);
-        Button result = (Button) HelperFunctions.checkClickTarget(".button");
+        Button result = (Button) HelperFunctions.checkClickTarget("css=.button");
         Assert.assertEquals(button, result);
     }
 
@@ -97,7 +97,7 @@ public class CheckClickTargetTest extends TestFxAdapterTest {
     public void checkClickTarget_Disabled() {
         button.setDisable(true);
         thrown.expect(JavaFXLibraryNonFatalException.class);
-        thrown.expectMessage("Given target \"" + button + "\" did not become enabled within given timeout of 0 seconds.");
+        thrown.expectMessage("target \"" + button + "\" not enabled!");
         HelperFunctions.checkClickTarget(button);
     }
 
@@ -105,7 +105,7 @@ public class CheckClickTargetTest extends TestFxAdapterTest {
     public void checkClickTarget_NotVisible() {
         button.setVisible(false);
         thrown.expect(JavaFXLibraryNonFatalException.class);
-        thrown.expectMessage("Given target \"" + button + "\" did not become visible within given timeout of 0 seconds.");
+        thrown.expectMessage("target \"" + button + "\" not visible");
         HelperFunctions.checkClickTarget(button);
     }
 }
