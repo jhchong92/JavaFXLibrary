@@ -1,5 +1,7 @@
 package javafxlibrary.utils.HelperFunctionsTests;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.SynchronousQueue;
 import javafx.scene.control.Button;
 import javafxlibrary.TestFxAdapterTest;
 import javafxlibrary.exceptions.JavaFXLibraryNonFatalException;
@@ -47,7 +49,7 @@ public class MapObjectsTest extends TestFxAdapterTest {
 
     @Test
     public void mapObjects_FromQueue() {
-        Queue<Button> queue = new PriorityQueue<>();
+        Queue<Button> queue = new ConcurrentLinkedQueue<>();
         queue.add(button);
         List<Object> keys = HelperFunctions.mapObjects(queue);
         Button b = (Button) TestFxAdapter.objectMap.get(keys.get(0));
