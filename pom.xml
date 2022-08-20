@@ -191,9 +191,8 @@
 					<argLine>
 						-javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar
 					</argLine>
-					<!--Temporarily include only FinderTest-->
 					<includes>
-						<include>FinderTest.java</include>
+						<include>**/*.java</include>
 					</includes>
 				</configuration>
 			</plugin>
