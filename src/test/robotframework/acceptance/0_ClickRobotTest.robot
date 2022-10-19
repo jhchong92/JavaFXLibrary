@@ -20,7 +20,7 @@ ${WINDOW_CENTERY}           ${EMPTY}
 
 *** Test Cases ***
 Click On TextFX Query
-    [Tags]                  smoke            demo-set       ready
+    [Tags]                  smoke            demo-set
     Click On                id=button
     Verify String           id=buttonLabel    Button has been clicked 1 times.
 

@@ -18,6 +18,8 @@
 package javafxlibrary.keywords.Keywords;
 
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafxlibrary.exceptions.JavaFXLibraryNonFatalException;
 import javafxlibrary.utils.RobotLog;
 import javafxlibrary.utils.TestFxAdapter;
@@ -201,10 +203,7 @@ public class KeyboardRobot extends TestFxAdapter {
                 StringSelection testData = new StringSelection(text);
                 c.setContents(testData, testData);
 
-                if (isMac())
-                    robot.push(KeyCode.META, KeyCode.V).sleep(100);
-                else
-                    robot.push(KeyCode.CONTROL, KeyCode.V).sleep(100);
+                robot.push(KeyCode.SHORTCUT, KeyCode.V).sleep(100); // trigger Paste shortcut
             } catch (Exception e) {
                 if (e instanceof JavaFXLibraryNonFatalException)
                     throw e;
